@@ -50,17 +50,26 @@ class Polynome(object):
     def __str__(self):
         result = str()
         if (self.degree == 0):
-            result = str(self._coefficients[0])
-        for i in range(self.degree, 0):
-            s = str()
-            if self._coefficients[i] > 0:
-                if i == self.degree:
-                    s = str(self._coefficients[i]) + 'x^' + str(i)
-                else:
-                    s = '+' + str(self._coefficients[i]) + 'x^' + str(i)
-            if self._coefficients[i] < 0:
-                s = '-' +str(self._coefficients[i]) + 'x^' + str(i)
+            return str(self._coefficients[0])
 
+        for i in range(self.degree, -1, -1):
+            s = str()
+            if i != 0:
+                if self._coefficients[i] > 0:
+                    if i == self.degree:
+                        s = str(self._coefficients[i]) + 'x^' + str(i)
+                    else:
+                        s = '+' + str(self._coefficients[i]) + 'x^' + str(i)
+                if self._coefficients[i] < 0:
+                    s = str(self._coefficients[i]) + 'x^' + str(i)
+            else:
+                if self._coefficients[i] > 0:
+                    if i == self.degree:
+                        s = str(self._coefficients[i])
+                    else:
+                        s = '+' + str(self._coefficients[i])
+                if self._coefficients[i] < 0:
+                    s = str(self._coefficients[i])
             result += s
 
         return result
