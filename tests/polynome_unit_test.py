@@ -84,7 +84,16 @@ class PolynomeTestCase(unittest.TestCase):
         # Assert
         self.assertFalse(eq)
 
-    
+
+    def test_eq_deg2_string_exception_other_isnt_polynom(self):
+        # Arrange
+        first = Polynome([-3, -2, -1])
+        second = 'string'
+        # Act
+        with self.assertRaises(Exception) as context:
+            eq = first.__eq__(second)
+        # Assert
+        self.assertTrue('Other isn\'t polynome.' in str(context.exception))
 
 if __name__ == '__main__':
     unittest.main()
