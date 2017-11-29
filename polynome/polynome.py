@@ -38,12 +38,22 @@ class Polynome(object):
         if not isinstance(other, Polynome):
             raise Exception("Other isn't polynome.")
 
-        result = Polynome([])
-        result._coefficients = [0] * (max(self.degree, other.degree) + 1)
+        count = max(self.degree, other.degree) + 1
+        tmp = [0] * count
+
         for i in range(0, self.degree + 1):
-            result._coefficients[i] += self._coefficients[i]
+            tmp[i] += self._coefficients[i]
         for i in range(0, other.degree + 1):
-            result._coefficients[i] += other._coefficients[i]
+            tmp[i] += other._coefficients[i]
+
+        coeff = [0] * count
+        for i in range(0, count):
+            coeff[i] = tmp[count - 1 - i]
+
+        while coeff[0] == 0 and len(coeff) > 1:
+            coeff.remove(coeff[0])
+
+        result = Polynome(coeff)
 
         return result
 
