@@ -149,7 +149,7 @@ class PolynomeTestCase(unittest.TestCase):
         # Assert
         self.assertEqual(str(eq), '1')
 
-    def test_add_deg0_deq0_0polynome(self):
+    def test_add_deg0_deq0_zero_polynome(self):
         # Arrange
         first = Polynome([0])
         second = Polynome([0])
@@ -168,6 +168,78 @@ class PolynomeTestCase(unittest.TestCase):
         # Assert
         self.assertTrue('Other isn\'t polynome.' in str(context.exception))
 
+    def test_sub_deg2_deg2_2polynome(self):
+        # Arrange
+        first = Polynome([-3, 2, 5])
+        second = Polynome([-1, 5, -2])
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '-2x^2-3x^1+7')
+
+    def test_sub_deg2_deg2_1polynome(self):
+        # Arrange
+        first = Polynome([-3, -2, -1])
+        second = Polynome([-5, -2, -2])
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1')
+
+    def test_sub_deg3_deg3_1polynome(self):
+        # Arrange
+        first = Polynome([-3, -2, -1, 0])
+        second = Polynome([-3, -2, -5, -2])
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '4x^1+2')
+
+    def test_sub_deg2_deg2_zero_polynome(self):
+        # Arrange
+        first = Polynome([-2, -1, -2])
+        second = Polynome([-2, -1, -2])
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '0')
+
+    def test_sub_deg2_deq0_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = Polynome([0])
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1x^1-2')
+
+    def test_sub_deg2_deq2_0polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = Polynome([2, 1, -3])
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '1')
+
+    def test_sub_deg0_deq0_zero_polynome(self):
+        # Arrange
+        first = Polynome([0])
+        second = Polynome([0])
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '0')
+
+    def test_sub_deg2_string_exception_other_isnt_polynom(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = 'string'
+        # Act
+        with self.assertRaises(Exception) as context:
+            eq = first - second
+        # Assert
+        self.assertTrue('Other isn\'t polynome.' in str(context.exception))
 
 if __name__ == '__main__':
     unittest.main()
