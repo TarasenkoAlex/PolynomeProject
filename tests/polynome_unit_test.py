@@ -241,5 +241,52 @@ class PolynomeTestCase(unittest.TestCase):
         # Assert
         self.assertTrue('Other isn\'t polynome.' in str(context.exception))
 
+    def test_mul_deg2_deg_0_2polenome(self):
+        # Arrange
+        first = Polynome([2, 1, 4])
+        second = Polynome([2])
+        # Act
+        eq = first * second
+        # Assert
+        self.assertEqual(str(eq), '4x^2+2x^1+8')
+
+    def test_mul_deg2_deg_1_3polenome(self):
+        # Arrange
+        first = Polynome([2, 1, 4])
+        second = Polynome([2, 0])
+        # Act
+        eq = first * second
+        # Assert
+        self.assertEqual(str(eq), '4x^3+2x^2+8x^1')
+
+    def test_mul_deg2_deg_2_4polenome(self):
+        # Arrange
+        first = Polynome([2, 2, 4])
+        second = Polynome([2, 1, 1])
+        # Act
+        eq = first * second
+        # Assert
+        self.assertEqual(str(eq), '4x^4+6x^3+12x^2+6x^1+4')
+
+    def test_mul_deg2_deg_zero_zero_polenome(self):
+        # Arrange
+        first = Polynome([2, 2, 4])
+        second = Polynome([0])
+        # Act
+        eq = first * second
+        # Assert
+        self.assertEqual(str(eq), '0')
+
+    def test_mul_deg2_string_exception_other_isnt_polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = 'string'
+        # Act
+        with self.assertRaises(Exception) as context:
+            eq = first * second
+        # Assert
+        self.assertTrue('Other isn\'t polynome.' in str(context.exception))
+
+
 if __name__ == '__main__':
     unittest.main()

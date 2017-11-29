@@ -80,6 +80,28 @@ class Polynome(object):
 
         return result
 
+    def __mul__(self, other):
+        if not isinstance(other, Polynome):
+            raise Exception("Other isn't polynome.")
+
+        count = self.degree + other.degree + 2
+        tmp = [0] * count
+
+        for i in range(0, self.degree + 1):
+            for j in range(0, other.degree + 1):
+                tmp[i + j] += self._coefficients[i] * other._coefficients[j]
+
+        coeff = [0] * count
+        for i in range(0, count):
+            coeff[i] = tmp[count - 1 - i]
+
+        while coeff[0] == 0 and len(coeff) > 1:
+            coeff.remove(coeff[0])
+
+        result = Polynome(coeff)
+
+        return result
+
     def __str__(self):
         result = str()
         if (self.degree == 0):
@@ -106,8 +128,6 @@ class Polynome(object):
             result += s
 
         return result
-
-
 
     @property
     def degree(self):
