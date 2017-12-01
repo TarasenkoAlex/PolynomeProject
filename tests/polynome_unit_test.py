@@ -168,6 +168,34 @@ class PolynomeTestCase(unittest.TestCase):
         # Assert
         self.assertTrue('Other isn\'t polynome.' in str(context.exception))
 
+    def test_add_deg2_int4_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = int(4)
+        # Act
+        eq = first + second
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1x^1+2')
+
+    def test_add_deg2_float3_4_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = float(3.4)
+        # Act
+        eq = first + second
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1x^1+1.4')
+
+    def test_add_deg2_int4_float1_3_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = int(4)
+        third = float(1.3)
+        # Act
+        eq = first + second + third
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1x^1+3.3')
+
     def test_sub_deg2_deg2_2polynome(self):
         # Arrange
         first = Polynome([-3, 2, 5])
@@ -241,6 +269,34 @@ class PolynomeTestCase(unittest.TestCase):
         # Assert
         self.assertTrue('Other isn\'t polynome.' in str(context.exception))
 
+    def test_sub_deg2_int4_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = int(4)
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1x^1-6')
+
+    def test_sub_deg2_float3_4_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = float(3.4)
+        # Act
+        eq = first - second
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1x^1-5.4')
+
+    def test_sub_deg2_int4_float1_3_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = int(4)
+        third = float(1.3)
+        # Act
+        eq = first - second - third
+        # Assert
+        self.assertEqual(str(eq), '2x^2+1x^1-7.3')
+
     def test_mul_deg2_deg_0_2polenome(self):
         # Arrange
         first = Polynome([2, 1, 4])
@@ -286,6 +342,52 @@ class PolynomeTestCase(unittest.TestCase):
             eq = first * second
         # Assert
         self.assertTrue('Other isn\'t polynome.' in str(context.exception))
+
+    def test_mul_deg2_int4_2polynome(self):
+        # Arrange
+        first = Polynome([5, 4, -2])
+        second = int(4)
+        # Act
+        eq = first * second
+        # Assert
+        self.assertEqual(str(eq), '20x^2+16x^1-8')
+
+    def test_mul_deg2_float1_5_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = float(1.5)
+        # Act
+        eq = first * second
+        # Assert
+        self.assertEqual(str(eq), '3.0x^2+1.5x^1-3.0')
+
+    def test_mul_deg2_int4_float1_5_2polynome(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = int(4)
+        third = float(1.5)
+        # Act
+        eq = first * second * third
+        # Assert
+        self.assertEqual(str(eq), '12.0x^2+6.0x^1-12.0')
+
+    def test_ne_deg2_deg2_True(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = Polynome([2, 5, -2])
+        # Act
+        eq = first != second
+        # Assert
+        self.assertTrue(eq)
+
+    def test_ne_deg2_deg2_False(self):
+        # Arrange
+        first = Polynome([2, 1, -2])
+        second = Polynome([2, 1, -2])
+        # Act
+        eq = first != second
+        # Assert
+        self.assertFalse(eq)
 
 
 if __name__ == '__main__':

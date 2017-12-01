@@ -35,72 +35,89 @@ class Polynome(object):
         return 0
 
     def __add__(self, other):
-        if not isinstance(other, Polynome):
+        if isinstance(other, Polynome):
+            count = max(self.degree, other.degree) + 1
+            tmp = [0] * count
+            for i in range(0, self.degree + 1):
+                tmp[i] = self._coefficients[i]
+            for i in range(0, other.degree + 1):
+                tmp[i] += other._coefficients[i]
+            coeff = [0] * count
+            for i in range(0, count):
+                coeff[i] = tmp[count - 1 - i]
+            while coeff[0] == 0 and len(coeff) > 1:
+                coeff.remove(coeff[0])
+            return Polynome(coeff)
+        elif isinstance(other, int) or isinstance(other, float):
+            count = self.degree + 1
+            tmp = [0] * count
+            for i in range(0, self.degree + 1):
+                tmp[i] = self._coefficients[i]
+            tmp[0] += other
+            coeff = [0] * count
+            for i in range(0, count):
+                coeff[i] = tmp[count - 1 - i]
+            while coeff[0] == 0 and len(coeff) > 1:
+                coeff.remove(coeff[0])
+            return Polynome(coeff)
+        else:
             raise Exception("Other isn't polynome.")
-
-        count = max(self.degree, other.degree) + 1
-        tmp = [0] * count
-
-        for i in range(0, self.degree + 1):
-            tmp[i] = self._coefficients[i]
-        for i in range(0, other.degree + 1):
-            tmp[i] += other._coefficients[i]
-
-        coeff = [0] * count
-        for i in range(0, count):
-            coeff[i] = tmp[count - 1 - i]
-
-        while coeff[0] == 0 and len(coeff) > 1:
-            coeff.remove(coeff[0])
-
-        result = Polynome(coeff)
-
-        return result
 
     def __sub__(self, other):
-        if not isinstance(other, Polynome):
+        if isinstance(other, Polynome):
+            count = max(self.degree, other.degree) + 1
+            tmp = [0] * count
+            for i in range(0, self.degree + 1):
+                tmp[i] = self._coefficients[i]
+            for i in range(0, other.degree + 1):
+                tmp[i] -= other._coefficients[i]
+            coeff = [0] * count
+            for i in range(0, count):
+                coeff[i] = tmp[count - 1 - i]
+            while coeff[0] == 0 and len(coeff) > 1:
+                coeff.remove(coeff[0])
+            return Polynome(coeff)
+        elif isinstance(other, int) or isinstance(other, float):
+            count = self.degree + 1
+            tmp = [0] * count
+            for i in range(0, self.degree + 1):
+                tmp[i] = self._coefficients[i]
+            tmp[0] -= other
+            coeff = [0] * count
+            for i in range(0, count):
+                coeff[i] = tmp[count - 1 - i]
+            while coeff[0] == 0 and len(coeff) > 1:
+                coeff.remove(coeff[0])
+            return Polynome(coeff)
+        else:
             raise Exception("Other isn't polynome.")
-
-        count = max(self.degree, other.degree) + 1
-        tmp = [0] * count
-
-        for i in range(0, self.degree + 1):
-            tmp[i] = self._coefficients[i]
-        for i in range(0, other.degree + 1):
-            tmp[i] -= other._coefficients[i]
-
-        coeff = [0] * count
-        for i in range(0, count):
-            coeff[i] = tmp[count - 1 - i]
-
-        while coeff[0] == 0 and len(coeff) > 1:
-            coeff.remove(coeff[0])
-
-        result = Polynome(coeff)
-
-        return result
 
     def __mul__(self, other):
-        if not isinstance(other, Polynome):
+        if isinstance(other, Polynome):
+            count = self.degree + other.degree + 2
+            tmp = [0] * count
+            for i in range(0, self.degree + 1):
+                for j in range(0, other.degree + 1):
+                    tmp[i + j] += self._coefficients[i] * other._coefficients[j]
+            coeff = [0] * count
+            for i in range(0, count):
+                coeff[i] = tmp[count - 1 - i]
+            while coeff[0] == 0 and len(coeff) > 1:
+                coeff.remove(coeff[0])
+            return Polynome(coeff)
+        elif isinstance(other, int) or isinstance(other, float):
+            count = self.degree + 1
+            tmp = [0] * count
+            for i in range(0, self.degree + 1):
+                tmp[i] = self._coefficients[i] * other
+            coeff = [0] * count
+            for i in range(0, count):
+                coeff[i] = tmp[count - 1 - i]
+            while coeff[0] == 0 and len(coeff) > 1:
+                coeff.remove(coeff[0])
+            return Polynome(coeff)
+        else:
             raise Exception("Other isn't polynome.")
-
-        count = self.degree + other.degree + 2
-        tmp = [0] * count
-
-        for i in range(0, self.degree + 1):
-            for j in range(0, other.degree + 1):
-                tmp[i + j] += self._coefficients[i] * other._coefficients[j]
-
-        coeff = [0] * count
-        for i in range(0, count):
-            coeff[i] = tmp[count - 1 - i]
-
-        while coeff[0] == 0 and len(coeff) > 1:
-            coeff.remove(coeff[0])
-
-        result = Polynome(coeff)
-
-        return result
 
     def __str__(self):
         result = str()
@@ -128,6 +145,9 @@ class Polynome(object):
             result += s
 
         return result
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     @property
     def degree(self):
