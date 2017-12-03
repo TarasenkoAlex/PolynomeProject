@@ -152,7 +152,3 @@ class Polynome(object):
     @property
     def degree(self):
         return self._degree
-
-
-
-
