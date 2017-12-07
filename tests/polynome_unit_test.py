@@ -77,13 +77,21 @@ class PolynomeTestCase(unittest.TestCase):
 
     def test_eq_deg2_deg2_other_coeff_False(self):
         # Arrange
-        first = Polynome([-3, -2, -1])
+        first = Polynome([-3, -2, -91])
         second = Polynome([3, 2, -1])
         # Act
         eq = first.__eq__(second)
         # Assert
         self.assertFalse(eq)
 
+    def test_eq_deg2_deg2_other_coeffs_False(self):
+        # Arrange
+        first = Polynome([3, -2, -1])
+        second = Polynome([13, 2, 1])
+        # Act
+        eq = first.__eq__(second)
+        # Assert
+        self.assertFalse(eq)
 
     def test_eq_deg2_string_exception_other_isnt_polynom(self):
         # Arrange

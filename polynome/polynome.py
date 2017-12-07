@@ -32,6 +32,8 @@ class Polynome(object):
         for i in range(self.degree, -1, -1):
             if self._coefficients[i] < other._coefficients[i]:
                 return -1
+            if self._coefficients[i] > other._coefficients[i]:
+                return 1
         return 0
 
     def __add__(self, other):
